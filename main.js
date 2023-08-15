@@ -1,57 +1,47 @@
-let computer ;
-let Player ;
+const playerText = document.querySelector("#playerText");
+const computerText = document.querySelector("#computerText");
+const resultText = document.querySelector("#resultText");
+const choiceBtns = document.querySelectorAll(".choiceBtn");
+let player;
+let computer;
+let result;
 
-let playerFinalChoice = prompt("What is your choice")
-Player = playerFinalChoice ;
+choiceBtns.forEach(button => button.addEventListener("click", () => {
 
-let computerChoice = Math.floor(Math.random() * 3) + 1 ;
+    player = button.textContent;
+    computerTurn();
+    playerText.textContent = `Player: ${player}`;
+    computerText.textContent = `Computer: ${computer}`;
+    resultText.textContent = checkWinner();
+}));
 
-function computerFinalChoice(choice){
-    if (choice = 1 ) {
-        computer = "rock"
-    }
-    else if (choice = 2 ) {
-        computer = "paper"
-    }
-    else if (choice = 3 ) {
-        computer = "scissors"
-    }
-    else {
-        console.log("Computer can not decide")
-    }
+function computerTurn(){
 
-    return computer
-}
+    const randNum = Math.floor(Math.random() * 3) + 1;
 
-function game(player , computer){
-    if(player === computer){
-        console.log('Tie') ;
-    }
-    else if(player == 'rock'){
-        if(computer == 'paper'){
-           console.log("Player Lose")
-
-        }else{
-            console.log("Player Won")
-        }
-    }
-    else if(player == 'scissors'){
-        if(computer == 'rock'){
-            console.log("You Lose")
-        }else{
-           console.log("You Won")
-        }
-    }
-    else if(player == 'paper'){
-        if(computer == 'scissors'){
-            console.log("You Won")
-        }else{
-            console.log("You Lose")
-        }
+    switch(randNum){
+      case 1:
+        computer = "ROCK";
+        break;
+      case 2:
+        computer = "PAPER";
+        break;
+      case 3:
+        computer = "SCISSORS";
+        break;
     }
 }
-
-computerFinalChoice(computerChoice);
-console.log("computer choose :" + computer)
-console.log("you choose :" + Player);
-game(Player , computer);
+function checkWinner(){
+    if(player == computer){
+      return "Draw!";
+    }
+    else if(computer == "ROCK"){
+      return (player == "PAPER") ? "You Win!" : "You Lose!"
+    }
+    else if(computer == "PAPER"){
+      return (player == "SCISSORS") ? "You Win!" : "You Lose!"
+    }
+    else if(computer == "SCISSORS"){
+      return (player == "ROCK") ? "You Win!" : "You Lose!"
+    }
+}
